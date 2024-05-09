@@ -4,7 +4,7 @@
 
 ## FRAMEWORK required
 
-* [ESX] (legacy)
+* [ESX (legacy)](https://github.com/esx-framework/esx_core)
 
 * [OxLib](https://github.com/overextended/ox_lib)
 
