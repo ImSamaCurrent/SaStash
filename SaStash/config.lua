@@ -1,6 +1,12 @@
 
 Config = {}
 
+Config.License = {
+    'license:xxxxxxxx',
+    'license:xxxxxxxx',
+    'license:xxxxxxxx'
+}
+
 Config.RangeDrawMarker = 6.0 -- number or false
 
 Config.RangeActive = 1.5
