@@ -111,42 +111,50 @@ end)
 
 RegisterServerEvent('SAM:addStash')
 AddEventHandler('SAM:addStash', function(name, coords, coords_props, heading, props, webhook)
-    webhook = webhook or ""
     local _src = source
-    local playername = GetPlayerName(_src)
-    MySQL.Async.execute('INSERT INTO SaStash (name, coords, coords_props, heading, props, webhooks) VALUES (@name, @coords, @coords_props, @heading, @props, @webhooks)',{
-        ['@name'] = name,
-        ['@coords'] = json.encode(coords),
-        ['@coords_props'] = json.encode(coords_props),
-        ['@heading'] = heading,
-        ['@props'] = props,
-        ['@webhooks'] = webhook
-    })
-    Wait(150)
-    Refresh2()
-    Wait(150)
-    TriggerClientEvent('SAM:RefresProps',-1)
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_CreateCoffre_title, string.format(Config.Lang.Webhooks_CreateCoffre, playername, name, coords), 10181046, Config.Webhooks.Create_Webhook)
-    TriggerClientEvent('esx:showNotification', _src, Config.Lang.Create_locker.." "..name)
+    if isAllowedToChange(_src) then
+        webhook = webhook or ""
+        local playername = GetPlayerName(_src)
+        MySQL.Async.execute('INSERT INTO SaStash (name, coords, coords_props, heading, props, webhooks) VALUES (@name, @coords, @coords_props, @heading, @props, @webhooks)',{
+            ['@name'] = name,
+            ['@coords'] = json.encode(coords),
+            ['@coords_props'] = json.encode(coords_props),
+            ['@heading'] = heading,
+            ['@props'] = props,
+            ['@webhooks'] = webhook
+        })
+        Wait(150)
+        Refresh2()
+        Wait(150)
+        TriggerClientEvent('SAM:RefresProps',-1)
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_CreateCoffre_title, string.format(Config.Lang.Webhooks_CreateCoffre, playername, name, coords), 10181046, Config.Webhooks.Create_Webhook)
+        TriggerClientEvent('esx:showNotification', _src, Config.Lang.Create_locker.." "..name)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
 
 RegisterServerEvent('SAM:addStashIni')
 AddEventHandler('SAM:addStashIni', function(name, label, password, slot, weight)
     local _src = source
-    local playername = GetPlayerName(_src)
-    slot = tonumber(slot)
-    weight = tonumber(weight)
-    MySQL.Async.execute('INSERT INTO SaStashIni (name, label, password, slot, weight) VALUES (@name, @label, @password, @slot, @weight)',{
-        ['@name'] = name,
-        ['@label'] = label,
-        ['@password'] = password,
-        ['@slot'] = slot,
-        ['@weight'] = weight
-    })
-    Wait(150)
-    Refresh()
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_CreateStash_title, string.format(Config.Lang.Webhooks_CreateStash, playername, label, name), 10181046, Config.Webhooks.Create_Webhook)
-    TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_name)
+    if isAllowedToChange(_src) then
+        local playername = GetPlayerName(_src)
+        slot = tonumber(slot)
+        weight = tonumber(weight)
+        MySQL.Async.execute('INSERT INTO SaStashIni (name, label, password, slot, weight) VALUES (@name, @label, @password, @slot, @weight)',{
+            ['@name'] = name,
+            ['@label'] = label,
+            ['@password'] = password,
+            ['@slot'] = slot,
+            ['@weight'] = weight
+        })
+        Wait(150)
+        Refresh()
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_CreateStash_title, string.format(Config.Lang.Webhooks_CreateStash, playername, label, name), 10181046, Config.Webhooks.Create_Webhook)
+        TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_name)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
 
 
@@ -192,175 +200,178 @@ end)
 RegisterServerEvent('SAM:updateSaStashSlot')
 AddEventHandler('SAM:updateSaStashSlot', function(slot, id, name, coffre)
     local _src = source
-    local playername = GetPlayerName(_src)
-    slot = tonumber(slot)
-    MySQL.Async.execute('UPDATE SaStashIni SET slot = @slot WHERE id = @id', {
-        ['@id'] = id,
-        ['@slot'] = slot
-        
-    })
-    Wait(150)
-    Refresh()
-    --Refresh2()
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateSlot_title, string.format(Config.Lang.Webhooks_UpdateSlot, playername, name, coffre), 3447003, Config.Webhooks.Slot_Webhook)
-    TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_mdp)
+    if isAllowedToChange(_src) then
+        local playername = GetPlayerName(_src)
+        slot = tonumber(slot)
+        MySQL.Async.execute('UPDATE SaStashIni SET slot = @slot WHERE id = @id', {
+            ['@id'] = id,
+            ['@slot'] = slot
+            
+        })
+        Wait(150)
+        Refresh()
+        --Refresh2()
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateSlot_title, string.format(Config.Lang.Webhooks_UpdateSlot, playername, name, coffre), 3447003, Config.Webhooks.Slot_Webhook)
+        TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_mdp)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
 
 RegisterServerEvent('SAM:updateSaStashWeight')
 AddEventHandler('SAM:updateSaStashWeight', function(weight, id, name, coffre)
     local _src = source
-    local playername = GetPlayerName(_src)
-    weight = tonumber(weight)
-    MySQL.Async.execute('UPDATE SaStashIni SET weight = @weight WHERE id = @id', {
-        ['@id'] = id,
-        ['@weight'] = weight
-        
-    })
-    Wait(150)
-    Refresh()
-    --Refresh2()
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateWeight_title, string.format(Config.Lang.Webhooks_UpdateWeight, playername, name, coffre), 3447003, Config.Webhooks.Weight_Webhook)
-    TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_mdp)
+    if isAllowedToChange(_src) then
+        local playername = GetPlayerName(_src)
+        weight = tonumber(weight)
+        MySQL.Async.execute('UPDATE SaStashIni SET weight = @weight WHERE id = @id', {
+            ['@id'] = id,
+            ['@weight'] = weight
+            
+        })
+        Wait(150)
+        Refresh()
+        --Refresh2()
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateWeight_title, string.format(Config.Lang.Webhooks_UpdateWeight, playername, name, coffre), 3447003, Config.Webhooks.Weight_Webhook)
+        TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_mdp)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
 
 
 RegisterServerEvent('SAM:updateSaStashProps')
 AddEventHandler('SAM:updateSaStashProps', function(props, id, name)
     local _src = source
-    local playername = GetPlayerName(_src)
-    MySQL.Async.execute('UPDATE SaStash SET props = @props WHERE id = @id', {
-        ['@id'] = id,
-        ['@props'] = props
-        
-    })
-    Wait(150)
-    --Refresh()
-    Refresh2()
-    Wait(150)
-    TriggerClientEvent('SAM:RefresProps',-1)
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateProps_title,  string.format(Config.Lang.Webhooks_UpdateProps, playername, name), 3447003, Config.Webhooks.Props_Webhook)
-    TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_props)
+    if isAllowedToChange(_src) then
+        local playername = GetPlayerName(_src)
+        MySQL.Async.execute('UPDATE SaStash SET props = @props WHERE id = @id', {
+            ['@id'] = id,
+            ['@props'] = props
+            
+        })
+        Wait(150)
+        --Refresh()
+        Refresh2()
+        Wait(150)
+        TriggerClientEvent('SAM:RefresProps',-1)
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateProps_title,  string.format(Config.Lang.Webhooks_UpdateProps, playername, name), 3447003, Config.Webhooks.Props_Webhook)
+        TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_props)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
 
 RegisterServerEvent('SAM:updateSaStashCoords')
 AddEventHandler('SAM:updateSaStashCoords', function(coords, id, name)
     local _src = source
-    local playername = GetPlayerName(_src)
-    MySQL.Async.execute('UPDATE SaStash SET coords = @coords WHERE id = @id', {
-        ['@id'] = id,
-        ['@coords'] = json.encode(coords)
-        
-    })
-    Wait(150)
-    --Refresh()
-    Refresh2()
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateCoords_title,  string.format(Config.Lang.Webhooks_UpdateCoords, playername, name, coords), 3447003, Config.Webhooks.Coords_Webhook)
-    TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_menu)
+    if isAllowedToChange(_src) then
+        local playername = GetPlayerName(_src)
+        MySQL.Async.execute('UPDATE SaStash SET coords = @coords WHERE id = @id', {
+            ['@id'] = id,
+            ['@coords'] = json.encode(coords)
+            
+        })
+        Wait(150)
+        --Refresh()
+        Refresh2()
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateCoords_title,  string.format(Config.Lang.Webhooks_UpdateCoords, playername, name, coords), 3447003, Config.Webhooks.Coords_Webhook)
+        TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_menu)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
 
 RegisterServerEvent('SAM:updateSaStashCoords_props')
 AddEventHandler('SAM:updateSaStashCoords_props', function(coords_props, heading, id, name)
     local _src = source
-    local playername = GetPlayerName(_src)
-    MySQL.Async.execute('UPDATE SaStash SET coords_props = @coords_props WHERE id = @id', {
-        ['@id'] = id,
-        ['@coords_props'] = json.encode(coords_props)
-        
-    })
-    Wait(250)
-    MySQL.Async.execute('UPDATE SaStash SET heading = @heading WHERE id = @id', {
-        ['@id'] = id,
-        ['@heading'] = heading
-        
-    })
-    Wait(250)
-    --Refresh()
-    Refresh2()
-    Wait(150)
-    TriggerClientEvent('SAM:RefresProps',-1)
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdatePropsCoords_title,  string.format(Config.Lang.Webhooks_UpdatePropsCoords, playername, name, coords_props), 3447003, Config.Webhooks.Coords_props_Webhook)
-    TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_prop)
+    if isAllowedToChange(_src) then
+        local _src = source
+        local playername = GetPlayerName(_src)
+        MySQL.Async.execute('UPDATE SaStash SET coords_props = @coords_props WHERE id = @id', {
+            ['@id'] = id,
+            ['@coords_props'] = json.encode(coords_props)
+            
+        })
+        Wait(250)
+        MySQL.Async.execute('UPDATE SaStash SET heading = @heading WHERE id = @id', {
+            ['@id'] = id,
+            ['@heading'] = heading
+            
+        })
+        Wait(250)
+        --Refresh()
+        Refresh2()
+        Wait(150)
+        TriggerClientEvent('SAM:RefresProps',-1)
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdatePropsCoords_title,  string.format(Config.Lang.Webhooks_UpdatePropsCoords, playername, name, coords_props), 3447003, Config.Webhooks.Coords_props_Webhook)
+        TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_prop)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
 
 RegisterServerEvent('SAM:updateSaStashWebhooks')
 AddEventHandler('SAM:updateSaStashWebhooks', function(webhook, id, name)
     local _src = source
-    local playername = GetPlayerName(_src)
-    MySQL.Async.execute('UPDATE SaStash SET webhooks = @webhooks WHERE id = @id', {
-        ['@id'] = id,
-        ['@webhooks'] = webhook
-        
-    })
-    Wait(250)
-    --Refresh()
-    Refresh2()
-    Wait(150)
-    TriggerClientEvent('SAM:RefresProps',-1)
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateWebhooks_title,  string.format(Config.Lang.Webhooks_UpdateWebhooks, playername, name), 15548997, Config.Webhooks.Coords_props_Webhook)
-    TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_prop)
+    if isAllowedToChange(_src) then
+        local playername = GetPlayerName(_src)
+        MySQL.Async.execute('UPDATE SaStash SET webhooks = @webhooks WHERE id = @id', {
+            ['@id'] = id,
+            ['@webhooks'] = webhook
+            
+        })
+        Wait(250)
+        --Refresh()
+        Refresh2()
+        Wait(150)
+        TriggerClientEvent('SAM:RefresProps',-1)
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateWebhooks_title,  string.format(Config.Lang.Webhooks_UpdateWebhooks, playername, name), 15548997, Config.Webhooks.Coords_props_Webhook)
+        TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_prop)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
 
 
 RegisterServerEvent('SAM:removeStash')
 AddEventHandler('SAM:removeStash', function(id, name)
     local _src = source
-    local playername = GetPlayerName(_src)
-    MySQL.Async.execute('DELETE FROM SaStash WHERE id = @id', {
-        ['@id'] = id
-    })
-    Wait(150)
-    --Refresh()
-    Refresh2()
-    Wait(150)
-    TriggerClientEvent('SAM:RefresProps',-1)
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_DeleteVault_title, string.format(Config.Lang.Webhooks_DeleteVault, playername, name), 15548997, Config.Webhooks.Delete_Webhook)
-    TriggerClientEvent('esx:showNotification', _src,  Config.Lang.Delet_vault.." "..name)
+    if isAllowedToChange(_src) then
+        local playername = GetPlayerName(_src)
+        MySQL.Async.execute('DELETE FROM SaStash WHERE id = @id', {
+            ['@id'] = id
+        })
+        Wait(150)
+        --Refresh()
+        Refresh2()
+        Wait(150)
+        TriggerClientEvent('SAM:RefresProps',-1)
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_DeleteVault_title, string.format(Config.Lang.Webhooks_DeleteVault, playername, name), 15548997, Config.Webhooks.Delete_Webhook)
+        TriggerClientEvent('esx:showNotification', _src,  Config.Lang.Delet_vault.." "..name)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
 
 RegisterServerEvent('SAM:removeStashIni')
 AddEventHandler('SAM:removeStashIni', function(id, inv, name, coffre)
     local _src = source
-    local playername = GetPlayerName(_src)
-    MySQL.Async.execute('DELETE FROM SaStashIni WHERE id = @id', {
-        ['@id'] = id
-    })
-    exports.ox_inventory:ClearInventory(inv)
-    Wait(150)
-    Refresh()
-    --Refresh2()
-    sendToDiscordWithSpecialURL(Config.Lang.Webhooks_DeleteStash_title, string.format(Config.Lang.Webhooks_DeleteStash, playername, name, coffre), 15548997, Config.Webhooks.Delete_Webhook)
-    TriggerClientEvent('esx:showNotification', _src,  Config.Lang.Delet_locker.." "..name)
+    if isAllowedToChange(_src) then
+        local playername = GetPlayerName(_src)
+        MySQL.Async.execute('DELETE FROM SaStashIni WHERE id = @id', {
+            ['@id'] = id
+        })
+        exports.ox_inventory:ClearInventory(inv)
+        Wait(150)
+        Refresh()
+        --Refresh2()
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_DeleteStash_title, string.format(Config.Lang.Webhooks_DeleteStash, playername, name, coffre), 15548997, Config.Webhooks.Delete_Webhook)
+        TriggerClientEvent('esx:showNotification', _src,  Config.Lang.Delet_locker.." "..name)
+    else
+        DropPlayer(_src,"you are not authorized to use this trigger")
+    end
 end)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-RegisterServerEvent('SAM:TpPlayerCoords')
-AddEventHandler('SAM:TpPlayerCoords', function(id, coords)
-    TriggerClientEvent('SAM:TpPlayerCoords', id, coords)
-    TriggerClientEvent('SAM:TpPlayerCoords', source, coords)
-end)
-
-
-
-
 
 
 
