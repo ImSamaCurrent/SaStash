@@ -53,6 +53,7 @@ Config.Webhooks = {
 
 	Username = "Logs SaStash",
 	Avatar = "https://cdn.discordapp.com/attachments/1190090809484251258/1197939245332045875/team_jsaipa2.png?ex=66458a1c&is=6644389c&hm=aaedd1e64781b016c037169f93d00f72ced9c01e48c19f03e36d6123dab5ffa9&",
+	Kick_player_Webhook = "WEBHOOK_LINK", -- Logs for bypass trigger 
 }
 
 Config.Props = {
