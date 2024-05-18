@@ -130,7 +130,9 @@ AddEventHandler('SAM:addStash', function(name, coords, coords_props, heading, pr
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_CreateCoffre_title, string.format(Config.Lang.Webhooks_CreateCoffre, playername, name, coords), 10181046, Config.Webhooks.Create_Webhook)
         TriggerClientEvent('esx:showNotification', _src, Config.Lang.Create_locker.." "..name)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_CreateCoffre_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -153,7 +155,9 @@ AddEventHandler('SAM:addStashIni', function(name, label, password, slot, weight)
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_CreateStash_title, string.format(Config.Lang.Webhooks_CreateStash, playername, label, name), 10181046, Config.Webhooks.Create_Webhook)
         TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_name)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_CreateStash_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -214,7 +218,9 @@ AddEventHandler('SAM:updateSaStashSlot', function(slot, id, name, coffre)
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateSlot_title, string.format(Config.Lang.Webhooks_UpdateSlot, playername, name, coffre), 3447003, Config.Webhooks.Slot_Webhook)
         TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_mdp)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateSlot_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -235,7 +241,9 @@ AddEventHandler('SAM:updateSaStashWeight', function(weight, id, name, coffre)
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateWeight_title, string.format(Config.Lang.Webhooks_UpdateWeight, playername, name, coffre), 3447003, Config.Webhooks.Weight_Webhook)
         TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_mdp)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateWeight_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -258,7 +266,9 @@ AddEventHandler('SAM:updateSaStashProps', function(props, id, name)
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateProps_title,  string.format(Config.Lang.Webhooks_UpdateProps, playername, name), 3447003, Config.Webhooks.Props_Webhook)
         TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_props)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateProps_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -278,7 +288,9 @@ AddEventHandler('SAM:updateSaStashCoords', function(coords, id, name)
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateCoords_title,  string.format(Config.Lang.Webhooks_UpdateCoords, playername, name, coords), 3447003, Config.Webhooks.Coords_Webhook)
         TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_menu)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateCoords_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -307,7 +319,9 @@ AddEventHandler('SAM:updateSaStashCoords_props', function(coords_props, heading,
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdatePropsCoords_title,  string.format(Config.Lang.Webhooks_UpdatePropsCoords, playername, name, coords_props), 3447003, Config.Webhooks.Coords_props_Webhook)
         TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_prop)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdatePropsCoords_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -329,7 +343,9 @@ AddEventHandler('SAM:updateSaStashWebhooks', function(webhook, id, name)
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateWebhooks_title,  string.format(Config.Lang.Webhooks_UpdateWebhooks, playername, name), 15548997, Config.Webhooks.Coords_props_Webhook)
         TriggerClientEvent('esx:showNotification', _src, Config.Lang.Edit_locker_prop)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_UpdateWebhooks_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -350,7 +366,9 @@ AddEventHandler('SAM:removeStash', function(id, name)
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_DeleteVault_title, string.format(Config.Lang.Webhooks_DeleteVault, playername, name), 15548997, Config.Webhooks.Delete_Webhook)
         TriggerClientEvent('esx:showNotification', _src,  Config.Lang.Delet_vault.." "..name)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_DeleteVault_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -369,7 +387,9 @@ AddEventHandler('SAM:removeStashIni', function(id, inv, name, coffre)
         sendToDiscordWithSpecialURL(Config.Lang.Webhooks_DeleteStash_title, string.format(Config.Lang.Webhooks_DeleteStash, playername, name, coffre), 15548997, Config.Webhooks.Delete_Webhook)
         TriggerClientEvent('esx:showNotification', _src,  Config.Lang.Delet_locker.." "..name)
     else
+        ReturnPlayerIdentifiers(_src)
         DropPlayer(_src,"you are not authorized to use this trigger")
+        sendToDiscordWithSpecialURL(Config.Lang.Webhooks_DeleteStash_title, "**__"..GetPlayerName(_src).."__**\nyou are not authorized to use this trigger. \nlicense: **"..license.."**\nSteam: **"..steamid.."**\nDiscord: <@"..discord:gsub("discord:", "")..">   |   IdDiscord: **"..discord:gsub("discord:", "").."**", 15548997, Config.Webhooks.Kick_player_Webhook)
     end
 end)
 
@@ -415,6 +435,24 @@ function sendToDiscordWithSpecialURL(title, message, color, url)
         embeds = embeds,
         avatar_url = Config.Webhooks.Avatar
     }), { ['Content-Type'] = 'application/json' })
+end
+
+
+function ReturnPlayerIdentifiers(source)
+    steamid  = "nil"
+    license  = "nil"
+    discord  = "nil"
+
+  for k,v in pairs(GetPlayerIdentifiers(source))do
+
+      if string.sub(v, 1, string.len("steam:")) == "steam:" then
+        steamid = v
+      elseif string.sub(v, 1, string.len("license:")) == "license:" then
+        license = v
+      elseif string.sub(v, 1, string.len("discord:")) == "discord:" then
+        discord = v
+      end
+  end
 end
 
 
