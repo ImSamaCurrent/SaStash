@@ -57,6 +57,7 @@ Config.Webhooks = {
 
 	Username = "Logs SaStash",
 	Avatar = "AVATAR_LINK",
+	Kick_player_Webhook = "WEBHOOK_LINK", -- Logs for bypass trigger 
 }
 ```
 
