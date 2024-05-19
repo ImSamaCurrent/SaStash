@@ -72,7 +72,7 @@ Config.LockpickItems = "stethoscope"
 
 Add prop on custom list (SaStash/Config.lua)
 ```
-Config.Props = {
+Config.Props = {  -- Use "Gizmo_axe_x" to adjust prop height 
 	{value = "prop_ld_int_safe_01", label = "Petit coffre avec dorure en or", Gizmo_ajust = "+", Gizmo_axe_x =  0.50,}, 
 	{value = "h4_prop_h4_safe_01a", label = "Grand coffre avec dorure en or", Gizmo_ajust = "+", Gizmo_axe_x =  0.99,}, 
 	{value = "sf_prop_v_43_safe_s_gd_01a", label = "Grand coffre doré", Gizmo_ajust = "+", Gizmo_axe_x =  0.20,}, 
