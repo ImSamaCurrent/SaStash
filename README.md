@@ -32,11 +32,11 @@
 
 Add authorization (SaStash/Config.lua)
 ```
-Config.License = {
+License = {
     'license:xxxxxxxx',
-    'license:xxxxxxxx',
-    'license:xxxxxxxx'
-}
+	'license:xxxxxxxx',
+	'license:xxxxxxxx'
+},
 ```
 
 
@@ -57,7 +57,6 @@ Config.Webhooks = {
 
 	Username = "Logs SaStash",
 	Avatar = "AVATAR_LINK",
-	Kick_player_Webhook = "WEBHOOK_LINK", -- Logs for bypass trigger 
 }
 ```
 
@@ -72,7 +71,7 @@ Config.LockpickItems = "stethoscope"
 
 Add prop on custom list (SaStash/Config.lua)
 ```
-Config.Props = {  -- Use "Gizmo_axe_x" to adjust prop height (only for gizmo)
+Config.Props = {
 	{value = "prop_ld_int_safe_01", label = "Petit coffre avec dorure en or", Gizmo_ajust = "+", Gizmo_axe_x =  0.50,}, 
 	{value = "h4_prop_h4_safe_01a", label = "Grand coffre avec dorure en or", Gizmo_ajust = "+", Gizmo_axe_x =  0.99,}, 
 	{value = "sf_prop_v_43_safe_s_gd_01a", label = "Grand coffre doré", Gizmo_ajust = "+", Gizmo_axe_x =  0.20,}, 
@@ -105,4 +104,6 @@ Command: SaStash
 ## Author
 
 ###### By ImSama
+
+
 
