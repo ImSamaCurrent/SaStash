@@ -2,7 +2,7 @@
 
 ---
 
-## FRAMEWORK required
+## dependency required
 
 * [ESX] (legacy)
 
